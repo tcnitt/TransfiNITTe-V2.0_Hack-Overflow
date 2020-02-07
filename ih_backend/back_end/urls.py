@@ -2,5 +2,6 @@ from django.urls import path
 from back_end import views
 
 urlpatterns = [
-    path('snippets/', views.Vehicle_list),
+    path('snippets/', views.Vehicle_list.as_view()),
 ]
+

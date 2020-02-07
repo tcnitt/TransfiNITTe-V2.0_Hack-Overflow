@@ -1,23 +1,23 @@
-from django.http import HttpResponse, JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from rest_framework.parsers import JSONParser
 from .models import Vehicle
 from .serializers import VehicleSerializer
+from django.http import Http404
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
 
-@csrf_exempt
-def Vehicle_list(request):
+
+class Vehicle_list(APIView):
     """
-    List all code snippets, or create a new snippet.
+    List all snippets, or create a new snippet.
     """
-    if request.method == 'GET':
+    def get(self, request, format=None):
         snippets = Vehicle.objects.all()
         serializer = VehicleSerializer(snippets, many=True)
-        return JsonResponse(serializer.data, safe=False)
+        return Response(serializer.data)
 
-    elif request.method == 'POST':
-        data = JSONParser().parse(request)
-        serializer = VehicleSerializer(data=data)
+    def post(self, request, format=None):
+        serializer = VehicleSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return JsonResponse(serializer.data, status=201)
-        return JsonResponse(serializer.errors, status=400)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
