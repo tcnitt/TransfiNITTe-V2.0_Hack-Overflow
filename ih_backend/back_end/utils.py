@@ -1,4 +1,6 @@
 # Checks the model, if the data isn't already present, send an sms to the given number
+
+
 def hello():
     import requests
     url = "https://www.fast2sms.com/dev/bulk"

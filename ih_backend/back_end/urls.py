@@ -6,5 +6,6 @@ urlpatterns = [
     path('snippets/', views.Vehicle_list.as_view()),
     path('rest-auth/', include('rest_auth.urls')),
     path('snippets/<int:pk>/', views.VehicleDetail.as_view()),
+    path('rest-auth/registration/',include('rest_auth.registration.urls'))
 ]
-
+    
