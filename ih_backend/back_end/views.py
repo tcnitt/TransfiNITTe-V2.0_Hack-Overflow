@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
+from .utils import hello
 
 
 class Vehicle_list(APIView):
@@ -32,7 +33,7 @@ class VehicleDetail(APIView):
         try:
             return Vehicle.objects.get(pk=pk)
         except Vehicle.DoesNotExist:
-            raise Http404
+            hello()
 
     def get(self, request, pk, format=None):
         snippet = self.get_object(pk)

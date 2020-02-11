@@ -129,10 +129,16 @@ STATIC_URL = '/static/'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [         
-        'rest_framework.authentication.TokenAuthentication',  # <-- And here
+         'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',  # <-- And here
     ],
+      'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated', )
 }
 
 SILENCED_SYSTEM_CHECKS = [
     'admin.E408',
 ]
+
+SITE_ID=1
+
